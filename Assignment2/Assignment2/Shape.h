@@ -9,30 +9,31 @@ private:
 	
 
 public:
-	virtual std::string getType() = 0;
+	
+	//(Shape();
+	//Shape(std::string);
+
+	 virtual float area() = 0;
 
 
-	float area();
+	 virtual std::string getType() = 0;
 
-
-
-
-	float circumference();
-
-
-
-	float *position();
+	 virtual float circumference() = 0;
 
 
 
-	bool isConvex();
+	virtual float *position() = 0;
 
 
 
-	float distance(Shape *s);
+	virtual bool isConvex() = 0;
 
 
 
+	virtual float distance(Shape *s) = 0;
+
+
+	
 
 };
 

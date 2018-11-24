@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "Functions.h"
-#include "shape.cpp"
+#include "shape.h"
 
 class Triangle : public Shape {
 private:
 	float * coord;
 	std::string type = "triangle";
-	float * centerCoord;
+	float centerCoord[2];
 	int counter;
 	
 	float xCoord[3];
@@ -24,6 +24,7 @@ public:
 	}
 
 	float area() {
+
 		int j = 0;
 		int k = 0;
 		
@@ -47,10 +48,16 @@ public:
 			}
 		}
 		float triArea = 0;
+
+		
 		triArea = abs((xCoord[0] * (yCoord[1] - yCoord[2]) + xCoord[1] * (yCoord[2] - yCoord[0]) + xCoord[2] * (yCoord[1] - yCoord[0])))/2;
 	
-			std::cout << "Area of the triangle is: " << triArea << "\n";
-	
+		
+			if (triArea == 0 )
+			{
+				return -1;
+			}
+			else
 		return triArea;
 
 	}
@@ -58,7 +65,8 @@ public:
 
 	float circumference() {
 		float triCircumference = 0;
-		triCircumference = xCoord[0] + xCoord[2] + yCoord[0] + yCoord[1];
+		triCircumference = (xCoord[2] - xCoord[0]) + (yCoord[2] - yCoord[0]) + (sqrt(pow(xCoord[2] - xCoord[0], 2) - pow(yCoord[2] - yCoord[0], 2)));
+		//triCircumference = xCoord[0] + xCoord[2] + yCoord[0] + yCoord[1];
 		std::cout << "Circumference of the triangle is: " << triCircumference << "\n";
 		return triCircumference;
 	}
@@ -71,7 +79,7 @@ public:
 		centerY = (yCoord[0] + yCoord[1] + yCoord[2]) / 3;
 		centerCoord[0] = centerX;
 		centerCoord[1] = centerY;
-		std::cout << "Center x is : " << centerCoord[0] << " And center y is: " << centerCoord[1] << "\n";
+		//std::cout << "Center x is : " << centerCoord[0] << " And center y is: " << centerCoord[1] << "\n";
 		return centerCoord;
 	}
 
@@ -80,7 +88,12 @@ public:
 		
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1]));
+		std::cout << "Distance is" << d << "\n";
 		return d;
+	}
+
+	bool isConvex() {
+		return true;
 	}
 
 	std::string getType() {
