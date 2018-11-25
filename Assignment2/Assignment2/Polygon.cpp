@@ -32,6 +32,7 @@ public:
 	}
 	float area() {
 		bool isConv;
+		bool isInter;
 		int j = 0;
 		int k = 0;
 		
@@ -56,17 +57,20 @@ public:
 			
 			
 		} 
-		for (int n = 0; n < numOfSides-1; n++)
+		int l = numOfSides - 1;
+		for (int n = 0; n < numOfSides; n++)
 			{
-				polyArea += abs((xCoord[n] * yCoord[n + 1]) - (yCoord[n] * xCoord[n + 1]))/2;
+				polyArea += (xCoord[l] + xCoord[n]) * (yCoord[l] - yCoord[n]);
+				l = n;
 			} 
+		polyArea = abs(polyArea / 2);
 		isConv = isConvex();
-		if (polyArea == 0 || isConv == false)
+		isInter = isIntersect();
+		if (polyArea == 0 || isConv == false || isInter== true)
 		{
 			return -1;
 		}
 		else
-			polyArea = polyArea;
 		return polyArea;
 	}
 
@@ -74,12 +78,12 @@ public:
 
 
 	float circumference() {
-		
-		for (int n = 0; n < numOfSides-1; n++)
+		int l = numOfSides - 1;
+		for (int n = 0; n < numOfSides; n++)
 		{
 			
-			polyCircumference += sqrt(pow(xCoord[n] - xCoord[n + 1], 2) + pow(yCoord[n] - yCoord[n + 1], 2));
-			
+			polyCircumference += sqrt(pow(xCoord[n] - xCoord[l], 2) + pow(yCoord[n] - yCoord[l], 2));
+			l = n;
 		}
 		polyCircumference = polyCircumference;
 		return polyCircumference;
@@ -106,7 +110,35 @@ public:
 
 	bool isConvex() {
 		bool isConv = false;
+
+		//Kolla vinkeln arctan dy/dx och spara den i en temporär variabel. Kolla arctan dy+1/dx+1 och kolla den är mindre än föregående, om den är större så är den konkav.
+		float dy;
+		float dx;
+		float angle;
+		float former;
 		for (int n = 0; n < numOfSides; n++)
+		{
+
+			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
+			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
+			angle = atan(dy / dx);
+			if (n > 1)
+			{
+				if (angle > former)
+				{
+					isConv = false;
+					n = numOfSides - 1;
+				}
+				else
+					isConv = true;
+			}
+			former = angle;
+
+
+		}
+		return isConv;
+	}
+		/*for (int n = 0; n < numOfSides; n++)
 		{
 			double dx1 = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
 			double dy1 = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
@@ -121,11 +153,28 @@ public:
 			else if (isConv != (zCrossProd > 0))
 				return false;
 		}
+		*/
+	
+
+	bool isIntersect() {
+		float dy;
+		float dx;
+		float exteriorAngle = 0;
+	
 		
-		return true;
+		for (int n = 0; n < numOfSides; n++)
+		{
+			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
+			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
+			exteriorAngle += 180 - atan(dy / dx);
+		}
+		if (exteriorAngle > 360)
+		{
+			return true;
+		}
+		else
+			return false;
 	}
-
-
 
 	float distance(Shape *s) {
 		float * sCoord = s->position() + 0;
