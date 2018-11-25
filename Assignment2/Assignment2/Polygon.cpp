@@ -9,6 +9,7 @@ private:
 	std::string type = "polygon";
 	float polyArea;
 	float polyCircumference;
+	bool isConv;
 	int counter;
 	int numOfSides;
 	float * xCoord;
@@ -31,7 +32,7 @@ public:
 		yCoord = new float[numOfSides];
 	}
 	float area() {
-		bool isConv;
+		
 		bool isInter;
 		int j = 0;
 		int k = 0;
@@ -92,17 +93,42 @@ public:
 
 
 	float *position() {
-		
-		for (int n = 0; n < numOfSides; n++)
+		if (isConv == false)
 		{
-			centerY += yCoord[n];
-			centerX += xCoord[n];
+			
+			float xHighest = xCoord[0];
+			float yHighest = yCoord[0];
+			float xLowest = xCoord[0];
+			float yLowest = yCoord[0];
+			for (int n = 0; n < numOfSides; n++)
+			{
+				if (xCoord[n] < xLowest)
+					xLowest = xCoord[n];
+				if (yCoord[n] < yLowest)
+					yLowest = yCoord[n];
+				if (yCoord[n] > yHighest)
+					yHighest = yCoord[n];
+				if (xCoord[n] > xHighest)
+					xHighest = xCoord[n];
+			}
+
+			float dy = yHighest - yLowest;
+			float dx = xHighest - xLowest;
+			centerCoord[0] = dx / 2;
+			centerCoord[1] = dy / 2;
 		}
-		centerX /= (numOfSides - 1);
-		centerY /= (numOfSides - 1);
-		centerCoord[0] = centerX;
-		centerCoord[1] = centerY;
-		
+		else
+		{
+			for (int n = 0; n < numOfSides; n++)
+			{
+				centerY += yCoord[n];
+				centerX += xCoord[n];
+			}
+			centerX /= (numOfSides);
+			centerY /= (numOfSides);
+			centerCoord[0] = centerX;
+			centerCoord[1] = centerY;
+		}
 		return centerCoord;
 	}
 
@@ -118,16 +144,17 @@ public:
 		float former;
 		for (int n = 0; n < numOfSides; n++)
 		{
-
+			
 			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
 			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
 			angle = atan(dy / dx);
+			
 			if (n > 1)
 			{
 				if (angle > former)
 				{
 					isConv = false;
-					n = numOfSides - 1;
+					
 				}
 				else
 					isConv = true;
@@ -159,14 +186,19 @@ public:
 	bool isIntersect() {
 		float dy;
 		float dx;
+		float interiorAngle = 0;
 		float exteriorAngle = 0;
 	
 		
 		for (int n = 0; n < numOfSides; n++)
 		{
-			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
-			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
-			exteriorAngle += 180 - atan(dy / dx);
+			dx = xCoord[n + 1 % numOfSides] - xCoord[n];
+			dy = yCoord[n + 1 % numOfSides] - yCoord[n];
+		
+			//dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
+			//dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
+			interiorAngle = atan(dy / dx) * 100;
+			exteriorAngle += (180 - abs(interiorAngle));
 		}
 		if (exteriorAngle > 360)
 		{
