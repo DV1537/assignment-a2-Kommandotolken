@@ -8,6 +8,10 @@ private:
 	std::string type;
 	float centerPos[2];
 public:
+	~Line() {
+		delete[] coord;
+		
+	}
 	Line(float * floatArray, int counter)
 	{
 		

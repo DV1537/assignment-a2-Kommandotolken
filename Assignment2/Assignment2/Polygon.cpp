@@ -6,25 +6,28 @@ class Polygon : public Shape {
 private:
 	const double PI = 3.14;
 	float * coord;
-	std::string type = "polygon";
+	std::string type;
 	float polyArea;
-	float polyCircumference;
+
 	bool isConv;
 	int counter;
 	int numOfSides;
+	float centerCoord[2];
 	float * xCoord;
 	float  * yCoord;
-	float centerCoord[2];
-	float centerX = 0;
-	float centerY = 0;
+
+
 public:
 
 	~Polygon()
 	{
 		delete[] coord;
+		delete[] xCoord;
+		delete[] yCoord;
 	}
 	Polygon(float * floatArray, int counter) {
 		this->counter = counter;
+		type = "polygon";
 		numOfSides = counter / 2;
 		coord = floatArray;
 		std::copy(floatArray, floatArray + counter, coord);
@@ -79,6 +82,7 @@ public:
 
 
 	float circumference() {
+		float polyCircumference = 0;
 		int l = numOfSides - 1;
 		for (int n = 0; n < numOfSides; n++)
 		{
@@ -93,6 +97,9 @@ public:
 
 
 	float *position() {
+		
+		float centerX = 0;
+		float centerY = 0;
 		if (isConv == false)
 		{
 			
@@ -165,23 +172,7 @@ public:
 		}
 		return isConv;
 	}
-		/*for (int n = 0; n < numOfSides; n++)
-		{
-			double dx1 = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
-			double dy1 = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
-			double dx2 = xCoord[n] - xCoord[n + 1 % numOfSides];
-			double dy2 = yCoord[n] - yCoord[n + 1 % numOfSides];
-			double zCrossProd = dx1 * dy2 - dy1 * dx2;
-
-			if (n == 0)
-			{
-				isConv = (zCrossProd > 0);
-			}
-			else if (isConv != (zCrossProd > 0))
-				return false;
-		}
-		*/
-	
+		
 
 	bool isIntersect() {
 		float dy;
@@ -211,7 +202,7 @@ public:
 	float distance(Shape *s) {
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1]));
-		 //d = (int)(d * 1000) / 1000;
+		
 		std::cout << "Distance is" << d << "\n";
 		return d;
 	}

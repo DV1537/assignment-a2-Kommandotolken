@@ -34,7 +34,6 @@ public:
 			if (i % 2 == 0)
 			{
 				xCoord[j] = coord[i];
-				//std::cout << xCoord[j] << "x \n";
 				j++;
 				
 			}
@@ -42,7 +41,6 @@ public:
 			{
 
 				yCoord[k] = coord[i];
-				//std::cout << yCoord[k] << "y \n";
 				k++;
 				
 			}
@@ -66,7 +64,7 @@ public:
 	float circumference() {
 		float triCircumference = 0;
 		triCircumference = (xCoord[2] - xCoord[0]) + (yCoord[2] - yCoord[0]) + (sqrt(pow(xCoord[2] - xCoord[0], 2) - pow(yCoord[2] - yCoord[0], 2)));
-		//triCircumference = xCoord[0] + xCoord[2] + yCoord[0] + yCoord[1];
+		
 		std::cout << "Circumference of the triangle is: " << triCircumference << "\n";
 		return triCircumference;
 	}
@@ -79,7 +77,7 @@ public:
 		centerY = (yCoord[0] + yCoord[1] + yCoord[2]) / 3;
 		centerCoord[0] = centerX;
 		centerCoord[1] = centerY;
-		//std::cout << "Center x is : " << centerCoord[0] << " And center y is: " << centerCoord[1] << "\n";
+		
 		return centerCoord;
 	}
 
