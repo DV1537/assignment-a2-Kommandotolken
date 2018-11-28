@@ -12,6 +12,7 @@ public:
 		delete[] coord;
 		
 	}
+
 	Line(float * floatArray, int counter)
 	{
 		
@@ -19,6 +20,13 @@ public:
 		this->counter = counter;
 		coord = new float[counter];
 		std::copy(floatArray, floatArray + counter, coord);
+	}
+
+	void operator=(const Line &l)
+	{
+		this->counter = l.counter;
+		this->coord = l.coord;
+
 	}
 	std::string getType() {
 		return type;

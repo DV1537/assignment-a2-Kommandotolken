@@ -1,3 +1,0 @@
-﻿  Assignment2.cpp
-c:\users\henrikasus\source\repos\assignment2\assignment2\assignment2.cpp(98): error C3867: 'Polygon::position': non-standard syntax; use '&' to create a pointer to member
-c:\users\henrikasus\source\repos\assignment2\assignment2\assignment2.cpp(98): error C2109: subscript requires array or pointer type

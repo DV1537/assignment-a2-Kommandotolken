@@ -4,7 +4,7 @@
 
 class Polygon : public Shape {
 private:
-	const double PI = 3.14;
+	
 	float * coord;
 	std::string type;
 	float polyArea;
@@ -25,14 +25,40 @@ public:
 		delete[] xCoord;
 		delete[] yCoord;
 	}
+	/*void operator=(const Polygon &p)
+	{
+		this->isConv = p.isConv;
+		this->counter = p.counter;
+		this->coord = p.coord;
+		this->numOfSides = p.numOfSides;
+		this->polyArea = p.polyArea;
+		this->centerCoord[0] = p.centerCoord[0];
+		std::memcpy(this->centerCoord, p.centerCoord, sizeof(centerCoord));
+		this->xCoord = p.xCoord;
+		this->yCoord = p.yCoord;
+		
+	}*/
+	void operator+(float coord[2])
+	{
+		float * extraCoords = new float[counter + 2];
+		std::copy(coord, coord + (counter + 2), extraCoords);
+		//Hämta float * med coords. Hitta slutet på den. Mata in points efter den
+		counter += 2;
+		delete[] coord;
+		coord = extraCoords;
+	}
+	void operator<<(const Polygon &p) {
+		//
+	}
 	Polygon(float * floatArray, int counter) {
 		this->counter = counter;
 		type = "polygon";
 		numOfSides = counter / 2;
 		coord = floatArray;
 		std::copy(floatArray, floatArray + counter, coord);
-		xCoord = new float[numOfSides];
-		yCoord = new float[numOfSides];
+		this->xCoord = new float[numOfSides];
+		this->yCoord = new float[numOfSides];
+		
 	}
 	float area() {
 		
@@ -131,8 +157,8 @@ public:
 				centerY += yCoord[n];
 				centerX += xCoord[n];
 			}
-			centerX /= (numOfSides);
-			centerY /= (numOfSides);
+			centerX /= 2;
+			centerY /= 2;
 			centerCoord[0] = centerX;
 			centerCoord[1] = centerY;
 		}
@@ -148,30 +174,39 @@ public:
 		float dy;
 		float dx;
 		float angle;
-		float former;
+		float m = 0;
+
+		//If convex it can not self intersect
 		for (int n = 0; n < numOfSides; n++)
 		{
+		
 			
-			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
-			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
-			angle = atan(dy / dx);
-			
-			if (n > 1)
-			{
-				if (angle > former)
+				dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
+				dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
+				
+				angle = abs(atan(dy / dx) * 100);
+
+				if (angle > 180)
 				{
 					isConv = false;
-					
+
 				}
 				else
 					isConv = true;
 			}
-			former = angle;
+			//dx = ;
+			//
+			//angle = abs(atan(dy / dx) * 100);
 
 
-		}
+	
 		return isConv;
 	}
+
+
+		
+		
+	
 		
 
 	bool isIntersect() {
@@ -181,13 +216,13 @@ public:
 		float exteriorAngle = 0;
 	
 		
-		for (int n = 0; n < numOfSides; n++)
+		for (int n = 0; n < numOfSides-1; n++)
 		{
-			dx = xCoord[n + 1 % numOfSides] - xCoord[n];
-			dy = yCoord[n + 1 % numOfSides] - yCoord[n];
+			//dx = xCoord[n + 1 % numOfSides] - xCoord[n];
+			//dy = yCoord[n + 1 % numOfSides] - yCoord[n];
 		
-			//dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
-			//dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
+			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
+			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
 			interiorAngle = atan(dy / dx) * 100;
 			exteriorAngle += (180 - abs(interiorAngle));
 		}
@@ -203,7 +238,7 @@ public:
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1]));
 		
-		std::cout << "Distance is" << d << "\n";
+		//std::cout << "Distance is" << d << "\n";
 		return d;
 	}
 

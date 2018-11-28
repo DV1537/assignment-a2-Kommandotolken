@@ -23,6 +23,25 @@ public:
 		
 	}
 
+	void operator=(const Triangle &t)
+	{
+		this->coord = t.coord;
+		this->counter = t.counter;
+		
+	}
+	
+	void operator+(float points[2])
+	{
+		float * extraCoords = new float[counter + 2];
+		std::copy(coord, coord + (counter + 2), extraCoords);
+		//Hämta float * med coords. Hitta slutet på den. Mata in points efter den
+		counter += 2;
+		delete[] coord;
+		coord = extraCoords;
+	}
+	void operator<<(const Triangle &t) {
+		//
+	}
 	float area() {
 
 		int j = 0;

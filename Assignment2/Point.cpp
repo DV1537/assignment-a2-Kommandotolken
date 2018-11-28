@@ -14,6 +14,14 @@ public:
 		type = "point";
 		std::copy(floatArray, floatArray + counter, coord);
 	}
+
+	 void operator=(const Point &p)
+	 {
+		 this->coord = p.coord;
+		 this->counter = p.counter;
+		
+
+	 }
 	std::string getType() {
 		return type;
 	}

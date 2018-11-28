@@ -10,9 +10,11 @@ private:
 
 public:
 	
-	//(Shape();
-	//Shape(std::string);
-
+	//Shape(float *,int );
+	
+	//virtual void operator=(const Shape &s) = 0;
+	//virtual void operator+(const Shape &s) = 0 ;
+	//virtual void operator<<(const Shape &s) = 0;
 	 virtual float area() = 0;
 
 
