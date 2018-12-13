@@ -23,25 +23,6 @@ public:
 		
 	}
 
-	void operator=(const Triangle &t)
-	{
-		this->coord = t.coord;
-		this->counter = t.counter;
-		
-	}
-	
-	void operator+(float points[2])
-	{
-		float * extraCoords = new float[counter + 2];
-		std::copy(coord, coord + (counter + 2), extraCoords);
-		//Hämta float * med coords. Hitta slutet på den. Mata in points efter den
-		counter += 2;
-		delete[] coord;
-		coord = extraCoords;
-	}
-	void operator<<(const Triangle &t) {
-		//
-	}
 	float area() {
 
 		int j = 0;
@@ -80,9 +61,15 @@ public:
 	}
 
 
-	float circumference() {
+	float circumference() const{
 		float triCircumference = 0;
-		triCircumference = (xCoord[2] - xCoord[0]) + (yCoord[2] - yCoord[0]) + (sqrt(pow(xCoord[2] - xCoord[0], 2) - pow(yCoord[2] - yCoord[0], 2)));
+		int l = 2;
+		for (int n = 0; n < 3; n++)
+		{
+
+			triCircumference += sqrt(pow(xCoord[l] - xCoord[n], 2) + pow(yCoord[l] - yCoord[n], 2));
+			l = n;
+		}
 		
 		std::cout << "Circumference of the triangle is: " << triCircumference << "\n";
 		return triCircumference;
@@ -100,7 +87,7 @@ public:
 		return centerCoord;
 	}
 
-	float distance(Shape *s)
+	float distance(Shape *s) const
 	{
 		
 		float * sCoord = s->position() + 0;
@@ -109,11 +96,11 @@ public:
 		return d;
 	}
 
-	bool isConvex() {
+	bool isConvex() const{
 		return true;
 	}
 
-	std::string getType() {
+	std::string getType() const {
 		return type;
 	}
 };

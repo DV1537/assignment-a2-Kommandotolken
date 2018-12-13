@@ -25,31 +25,7 @@ public:
 		delete[] xCoord;
 		delete[] yCoord;
 	}
-	/*void operator=(const Polygon &p)
-	{
-		this->isConv = p.isConv;
-		this->counter = p.counter;
-		this->coord = p.coord;
-		this->numOfSides = p.numOfSides;
-		this->polyArea = p.polyArea;
-		this->centerCoord[0] = p.centerCoord[0];
-		std::memcpy(this->centerCoord, p.centerCoord, sizeof(centerCoord));
-		this->xCoord = p.xCoord;
-		this->yCoord = p.yCoord;
-		
-	}*/
-	void operator+(float coord[2])
-	{
-		float * extraCoords = new float[counter + 2];
-		std::copy(coord, coord + (counter + 2), extraCoords);
-		//Hämta float * med coords. Hitta slutet på den. Mata in points efter den
-		counter += 2;
-		delete[] coord;
-		coord = extraCoords;
-	}
-	void operator<<(const Polygon &p) {
-		//
-	}
+
 	Polygon(float * floatArray, int counter) {
 		this->counter = counter;
 		type = "polygon";
@@ -107,7 +83,7 @@ public:
 
 
 
-	float circumference() {
+	float circumference() const {
 		float polyCircumference = 0;
 		int l = numOfSides - 1;
 		for (int n = 0; n < numOfSides; n++)
@@ -167,7 +143,7 @@ public:
 
 
 
-	bool isConvex() {
+	bool isConvex() const{
 		bool isConv = false;
 
 		//Kolla vinkeln arctan dy/dx och spara den i en temporär variabel. Kolla arctan dy+1/dx+1 och kolla den är mindre än föregående, om den är större så är den konkav.
@@ -189,7 +165,7 @@ public:
 				if (angle > 180)
 				{
 					isConv = false;
-
+					return isConv;
 				}
 				else
 					isConv = true;
@@ -209,7 +185,7 @@ public:
 	
 		
 
-	bool isIntersect() {
+	bool isIntersect() const{
 		float dy;
 		float dx;
 		float interiorAngle = 0;
@@ -234,7 +210,7 @@ public:
 			return false;
 	}
 
-	float distance(Shape *s) {
+	float distance(Shape *s) const {
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1]));
 		
@@ -242,7 +218,7 @@ public:
 		return d;
 	}
 
-	std::string getType()
+	std::string getType() const
 	{
 		return type;
 	}

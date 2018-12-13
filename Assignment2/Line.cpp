@@ -22,25 +22,20 @@ public:
 		std::copy(floatArray, floatArray + counter, coord);
 	}
 
-	void operator=(const Line &l)
-	{
-		this->counter = l.counter;
-		this->coord = l.coord;
-
-	}
-	std::string getType() {
+	
+	std::string getType() const {
 		return type;
 	}
 
 
-	float area() {
+	float area() const {
 		return -1;
 	}
 
 
 
 
-	float circumference() {
+	float circumference() const {
 		return 0;
 	}
 
@@ -59,13 +54,13 @@ public:
 
 
 
-	bool isConvex() {
+	bool isConvex() const {
 		return false;
 	}
 
 
 
-	float distance(Shape *s) {
+	float distance(Shape *s) const {
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerPos[0]) - (sCoord[1] * centerPos[1]));
 		std::cout << "Distance is" << d << "\n";
