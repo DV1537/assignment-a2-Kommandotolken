@@ -214,7 +214,7 @@ public:
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1]));
 		
-		//std::cout << "Distance is" << d << "\n";
+		
 		return d;
 	}
 

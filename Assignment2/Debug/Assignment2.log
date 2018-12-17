@@ -1,4 +1,6 @@
-﻿  Polygon.cpp
+﻿  Line.cpp
+  Point.cpp
+  Polygon.cpp
   Triangle.cpp
   Generating Code...
   Assignment2.vcxproj -> C:\Users\HenrikAsus\Documents\assignment-a2-Kommandotolken\Assignment2\Debug\Assignment2.exe

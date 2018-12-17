@@ -14,9 +14,9 @@ public:
 	 virtual float area() = 0;
 
 
-	 virtual std::string getType() = 0;
+	 virtual std::string getType () const = 0;
 
-	 virtual float circumference() = 0;
+	 virtual float circumference() const = 0;
 
 
 
@@ -24,11 +24,11 @@ public:
 
 
 
-	virtual bool isConvex() = 0;
+	virtual bool isConvex() const = 0;
 
 
 
-	virtual float distance(Shape *s) = 0;
+	virtual float distance(Shape *s) const = 0;
 
 
 	
