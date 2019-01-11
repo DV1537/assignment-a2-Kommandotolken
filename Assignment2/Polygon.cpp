@@ -212,7 +212,7 @@ public:
 
 	float distance(Shape *s) const {
 		float * sCoord = s->position() + 0;
-		float d = sqrt((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1]));
+		float d = sqrt(abs((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1])));
 		
 		
 		return d;
