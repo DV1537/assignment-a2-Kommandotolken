@@ -64,6 +64,7 @@ public:
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerPos[0]) - (sCoord[1] * centerPos[1]));
 		std::cout << "Distance is" << d << "\n";
+		delete sCoord;
 		return d;
 	}
 
