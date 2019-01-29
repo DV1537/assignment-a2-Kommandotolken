@@ -5,7 +5,7 @@ class Line {
 private:
 	int counter;
 	float * coord;
-	std::string type;
+	const std::string type = "Line";
 	float centerPos[2];
 public:
 	~Line() {
@@ -16,7 +16,6 @@ public:
 	Line(float * floatArray, int counter)
 	{
 		
-		type = "line";
 		this->counter = counter;
 		coord = new float[counter];
 		std::copy(floatArray, floatArray + counter, coord);

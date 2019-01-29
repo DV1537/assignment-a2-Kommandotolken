@@ -5,7 +5,7 @@
 class Triangle : public Shape {
 private:
 	float * coord;
-	std::string type = "triangle";
+	const std::string type = "Triangle";
 	float centerCoord[2];
 	int counter;
 	

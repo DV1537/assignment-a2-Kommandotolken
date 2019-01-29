@@ -6,7 +6,7 @@ class Polygon : public Shape {
 private:
 	
 	float * coord;
-	std::string type;
+	const std::string type = "Polygon";
 	float polyArea;
 
 	bool isConv;
@@ -28,7 +28,7 @@ public:
 
 	Polygon(float * floatArray, int counter) {
 		this->counter = counter;
-		type = "polygon";
+		
 		numOfSides = counter / 2;
 		coord = floatArray;
 		std::copy(floatArray, floatArray + counter, coord);

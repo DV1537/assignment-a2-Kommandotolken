@@ -2,7 +2,7 @@
 #include "Shape.h"
 class Point {
 private:
-	std::string type;
+	const std::string type = "Point";
 	float * coord;
 	int counter;
 public:
@@ -11,7 +11,7 @@ public:
 		
 		this->counter = counter;
 		coord = floatArray;
-		type = "point";
+		
 		std::copy(floatArray, floatArray + counter, coord);
 	}
 
