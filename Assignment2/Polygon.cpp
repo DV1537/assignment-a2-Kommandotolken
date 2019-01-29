@@ -1,32 +1,15 @@
 #include "pch.h"
 #include "Functions.h"
-#include "Shape.h"
+#include "Polygon.h"
 
-class Polygon : public Shape {
-private:
-	
-	float * coord;
-	const std::string type = "Polygon";
-	float polyArea;
-
-	bool isConv;
-	int counter;
-	int numOfSides;
-	float centerCoord[2];
-	float * xCoord;
-	float  * yCoord;
-
-
-public:
-
-	~Polygon()
+	Polygon::~Polygon()
 	{
 		delete[] coord;
 		delete[] xCoord;
 		delete[] yCoord;
 	}
 
-	Polygon(float * floatArray, int counter) {
+	Polygon::Polygon(float * floatArray, int counter) {
 		this->counter = counter;
 		
 		numOfSides = counter / 2;
@@ -36,7 +19,7 @@ public:
 		this->yCoord = new float[numOfSides];
 		
 	}
-	float area() {
+	float Polygon::area() {
 		
 		bool isInter;
 		int j = 0;
@@ -83,7 +66,7 @@ public:
 
 
 
-	float circumference() const {
+	float Polygon::circumference() const {
 		float polyCircumference = 0;
 		int l = numOfSides - 1;
 		for (int n = 0; n < numOfSides; n++)
@@ -98,7 +81,7 @@ public:
 
 
 
-	float *position() {
+	float* Polygon::position() {
 		
 		float centerX = 0;
 		float centerY = 0;
@@ -143,7 +126,7 @@ public:
 
 
 
-	bool isConvex() const{
+	bool Polygon::isConvex() const{
 		bool isConv = false;
 
 		//Kolla vinkeln arctan dy/dx och spara den i en temporär variabel. Kolla arctan dy+1/dx+1 och kolla den är mindre än föregående, om den är större så är den konkav.
@@ -170,11 +153,7 @@ public:
 				else
 					isConv = true;
 			}
-			//dx = ;
-			//
-			//angle = abs(atan(dy / dx) * 100);
-
-
+			
 	
 		return isConv;
 	}
@@ -185,7 +164,7 @@ public:
 	
 		
 
-	bool isIntersect() const{
+	bool Polygon::isIntersect() const{
 		float dy;
 		float dx;
 		float interiorAngle = 0;
@@ -194,9 +173,7 @@ public:
 		
 		for (int n = 0; n < numOfSides-1; n++)
 		{
-			//dx = xCoord[n + 1 % numOfSides] - xCoord[n];
-			//dy = yCoord[n + 1 % numOfSides] - yCoord[n];
-		
+			
 			dx = xCoord[n + 2 % numOfSides] - xCoord[n + 1 % numOfSides];
 			dy = yCoord[n + 2 % numOfSides] - yCoord[n + 1 % numOfSides];
 			interiorAngle = atan(dy / dx) * 100;
@@ -210,7 +187,7 @@ public:
 			return false;
 	}
 
-	float distance(Shape *s) const {
+	float Polygon::distance(Shape *s) const {
 		float * sCoord = s->position() + 0;
 		float d = sqrt(abs((sCoord[0] * centerCoord[0]) - (sCoord[1] * centerCoord[1])));
 		
@@ -218,8 +195,7 @@ public:
 		return d;
 	}
 
-	std::string getType() const
+	std::string Polygon::getType() const
 	{
 		return type;
 	}
-};

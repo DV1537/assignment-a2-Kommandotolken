@@ -1,6 +1,2 @@
-﻿  Assignment2.cpp
-c:\users\henrikasus\documents\assignment-a2-kommandotolken\assignment2\assignment2.cpp(13): warning C4101: 'centerCoordinates': unreferenced local variable
-  Polygon.cpp
-  Triangle.cpp
-  Generating Code...
+﻿  Triangle.cpp
   Assignment2.vcxproj -> C:\Users\HenrikAsus\Documents\assignment-a2-Kommandotolken\Assignment2\Debug\Assignment2.exe

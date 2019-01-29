@@ -1,13 +1,9 @@
 #include "pch.h"
-#include "Shape.h"
-class Point {
-private:
-	const std::string type = "Point";
-	float * coord;
-	int counter;
-public:
+#include "Functions.h"
+#include "Point.h"
+
 	
-	 Point(float * floatArray, int counter) {
+	 Point::Point(float * floatArray, int counter) {
 		
 		this->counter = counter;
 		coord = floatArray;
@@ -16,38 +12,39 @@ public:
 	}
 
 
-	std::string getType() const {
+	std::string Point::getType() const {
 		return type;
 	}
 
 
-	float area() const {
+	float Point::area() const {
 		return -1;
 	}
 
 
 
 
-	float circumference() const {
+	float Point::circumference() const {
 		return 0;
 	}
 
 
 
-	float * position() const{
+	float * Point::position() const{
 		std::cout << "Center x is: " << coord[0] << " Center y is: " << coord[1] << "\n";
 		return coord;
 	}
 
 
 
-	bool isConvex() const {
+	bool Point::isConvex() const {
 		return true;
 	}
 
 
-	float distance(Shape *s) const {
+	float Point::distance(Shape *s) const {
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * coord[0]) - (sCoord[1] * coord[1]));
+		return d;
 	}
-};
+	

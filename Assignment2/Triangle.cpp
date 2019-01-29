@@ -1,19 +1,9 @@
 #include "pch.h"
 #include "Functions.h"
-#include "shape.h"
+#include "Shape.h"
+#include "Triangle.h"
 
-class Triangle : public Shape {
-private:
-	float * coord;
-	const std::string type = "Triangle";
-	float centerCoord[2];
-	int counter;
-	
-	float xCoord[3];
-	float yCoord[3];
-	
-public:
-	Triangle(float * floatArray, int counter) {
+	Triangle::Triangle(float * floatArray, int counter) {
 		this->counter = counter;
 		coord = floatArray;
 		
@@ -23,7 +13,7 @@ public:
 		
 	}
 
-	float area() {
+	float Triangle::area() {
 
 		int j = 0;
 		int k = 0;
@@ -61,7 +51,7 @@ public:
 	}
 
 
-	float circumference() const{
+	float Triangle::circumference() const{
 		float triCircumference = 0;
 		int l = 2;
 		for (int n = 0; n < 3; n++)
@@ -75,7 +65,7 @@ public:
 		return triCircumference;
 	}
 
-	float * position() {
+	float * Triangle::position() {
 		float centerX;
 		float centerY;
 		
@@ -87,7 +77,7 @@ public:
 		return centerCoord;
 	}
 
-	float distance(Shape *s) const
+	float Triangle::distance(Shape *s) const
 	{
 		
 		float * sCoord = s->position() + 0;
@@ -96,11 +86,10 @@ public:
 		return d;
 	}
 
-	bool isConvex() const{
+	bool Triangle::isConvex() const{
 		return true;
 	}
 
-	std::string getType() const {
+	std::string Triangle::getType() const {
 		return type;
 	}
-};

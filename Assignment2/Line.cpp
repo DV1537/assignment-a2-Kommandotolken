@@ -1,19 +1,13 @@
 #include "pch.h"
 #include "Functions.h"
-#include "Shape.h"
-class Line {
-private:
-	int counter;
-	float * coord;
-	const std::string type = "Line";
-	float centerPos[2];
-public:
-	~Line() {
+#include "Line.h"
+
+	Line::~Line() {
 		delete[] coord;
 		
 	}
 
-	Line(float * floatArray, int counter)
+	Line::Line(float * floatArray, int counter)
 	{
 		
 		this->counter = counter;
@@ -22,25 +16,25 @@ public:
 	}
 
 	
-	std::string getType() const {
+	std::string Line::getType() const {
 		return type;
 	}
 
 
-	float area() const {
+	float Line::area() const {
 		return -1;
 	}
 
 
 
 
-	float circumference() const {
+	float Line::circumference() const {
 		return 0;
 	}
 
 
 
-	float * position() {
+	float * Line::position() {
 		
 		float centerX = (coord[2] - coord[0]) / 2;
 		float centerY = (coord[3] - coord[1]) / 2;
@@ -53,13 +47,13 @@ public:
 
 
 
-	bool isConvex() const {
+	bool Line::isConvex() const {
 		return false;
 	}
 
 
 
-	float distance(Shape *s) const {
+	float Line::distance(Shape *s) const {
 		float * sCoord = s->position() + 0;
 		float d = sqrt((sCoord[0] * centerPos[0]) - (sCoord[1] * centerPos[1]));
 		std::cout << "Distance is" << d << "\n";
@@ -67,5 +61,3 @@ public:
 		return d;
 	}
 
-
-};
